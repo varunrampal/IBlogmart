@@ -1,5 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { SidebarModule } from 'ng-sidebar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -7,22 +10,33 @@ import { HeaderComponent } from './shared/header/header.component';
 import { HomeComponent } from './components/home/home.component';
 import { FeaturedPostComponent } from './components/featured-post/featured-post.component';
 import { RecentPostComponent } from './components/recent-post/recent-post.component';
+import { AppLayoutComponent } from './components/_layout/app-layout/app-layout.component';
+import { AppHeaderComponent } from './components/_layout/app-header/app-header.component';
+import { AdminRoutingModule } from './admin/admin.module';
+import { AuthService } from './_services/auth.service';
+import { AlertifyService } from './_services/alertify.service';
+import { ErrorInterceptor } from './_services/error.interceptor';
 
 @NgModule({
-   declarations: [
-      AppComponent,
-      HeaderComponent,
-      HomeComponent,
-      FeaturedPostComponent,
-      RecentPostComponent
-   ],
-   imports: [
-      BrowserModule,
-      AppRoutingModule
-   ],
-   providers: [],
-   bootstrap: [
-      AppComponent
-   ]
+  declarations: [
+    AppComponent,
+    AppLayoutComponent,
+    AppHeaderComponent,
+    HeaderComponent,
+    HomeComponent,
+    FeaturedPostComponent,
+    RecentPostComponent,
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    AdminRoutingModule,
+    SidebarModule.forRoot(),
+  ],
+  providers: [ErrorInterceptor, AuthService, AlertifyService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

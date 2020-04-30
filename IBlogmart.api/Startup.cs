@@ -59,6 +59,7 @@ namespace IBlogmart.api
 
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+            services.AddScoped<IAuthRepository, AuthRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
              .AddJwtBearer(options =>

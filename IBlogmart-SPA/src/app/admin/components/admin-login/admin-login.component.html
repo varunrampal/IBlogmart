@@ -1,0 +1,48 @@
+<div class="wrapper">
+    <div class="page-header">
+        <div class="filter"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 mr-auto ml-auto">
+                      <div class="card card-register">
+                          <h3 class="title">Admin Login</h3>
+                                  <form #loginForm="ngForm" (ngSubmit)="login()" class="register-form">
+                              <label>Username</label>
+                              <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus===true}">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">
+                                      <i class="nc-icon nc-sun-fog-29"></i>
+                                  </span>
+                                </div>
+
+                                  <input type="text" class="form-control" placeholder="Username" name="username" 
+                                  (focus)="focus=true" (blur)="focus=false"
+                                  required  [(ngModel)]="model.username"
+                                  >
+                              </div>
+
+                              <label>Password</label>
+                              <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus1===true}">
+                                <div class="input-group-prepend">
+                                  <span class="input-group-text">
+                                      <i class="nc-icon nc-key-25"></i>
+                                  </span>
+                                </div>
+                                  <input type="text" class="form-control" placeholder="Password" name="password"
+                                   (focus)="focus1=true" (blur)="focus1=false" required
+                                   [(ngModel)]="model.password" >
+                              </div>
+                              <button class="btn btn-danger btn-block btn-round">Login</button>
+                          </form>
+                          <!-- <div class="forgot">
+                              <a href="#" class="btn btn-link btn-danger">Forgot password?</a>
+                          </div> -->
+                      </div>
+                    </div>
+                </div>
+                <div class="footer register-footer text-center">
+                    <h6>&copy;{{test | date: 'yyyy'}}, by Varun Rampal</h6>
+                </div>
+            </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+
+<nav class="navbar navbar-expand-lg fixed-top" color-on-scroll="500">
+  <div class="container">
+      <div  class="navbar-translate">
+          <a class="navbar-brand" [routerLink]="['/admin-dashboard']"><img src='assets/admin/img/logo-admin.png' height="40px"/>  Admin</a>
+          <div *ngIf="loggedIn()">  <button  class="navbar-toggler navbar-burger" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" (click)="sidebarToggle()">
+            <span class="navbar-toggler-bar"></span>
+            <span class="navbar-toggler-bar"></span>
+            <span class="navbar-toggler-bar"></span>
+        </button></div>
+        
+      </div>
+      <div class="navbar-collapse" id="navbarToggler">
+          <ul *ngIf="loggedIn()" class="navbar-nav ml-auto">
+  
+              <li class="nav-item" routerLinkActive="active">
+                  <a [routerLink]="['/routePath']"  class="nav-link" target="_blank">Featured Post</a>
+              </li>
+
+              <li class="nav-item" routerLinkActive="active">
+                <a [routerLink]="['/routePath']"  class="nav-link" target="_blank">Recent Post</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a [routerLink]="['/routePath']"  class="nav-link" target="_blank">Categories</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active">
+                <a class="nav-link" (click)="logout()">Logout</a>
+            </li>
+        
+          </ul>
+      </div>
+  </div>
+</nav>
