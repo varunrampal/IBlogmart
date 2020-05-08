@@ -35,9 +35,9 @@ export class AdminHeaderComponent implements OnInit {
     // console.log(html);
     // console.log(toggleButton, 'toggle');
 
-    setTimeout(function() {
-      toggleButton.classList.add('toggled');
-    }, 500);
+    // setTimeout(function() {
+    //   toggleButton.classList.add('toggled');
+    // }, 500);
     html.classList.add('nav-open');
 
     this.sidebarVisible = true;

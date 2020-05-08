@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { AuthService } from 'src/app/_services/auth.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { Router } from '@angular/router';
@@ -8,17 +8,23 @@ import { Router } from '@angular/router';
   templateUrl: './admin-login.component.html',
   styleUrls: ['./admin-login.component.css']
 })
-export class AdminLoginComponent implements OnInit {
-  test : Date = new Date();
+export class AdminLoginComponent implements OnInit, AfterViewInit {
+  test: Date = new Date();
     focus;
     focus1;
     model: any = {};
+    @ViewChild('usernameRef', {static: false} ) userNameElemRef: ElementRef;
+
   constructor(private authService: AuthService,
               private alertifyService: AlertifyService,
               private router: Router
               ) { }
 
   ngOnInit() {
+  }
+  ngAfterViewInit() {
+     this.userNameElemRef.nativeElement.focus();
+
   }
 
   login() {

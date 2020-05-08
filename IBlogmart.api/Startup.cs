@@ -53,13 +53,15 @@ namespace IBlogmart.api
         {
             services.AddControllers();
             services.AddCors();
-            //services.AddAutoMapper(typeof(AuthRepository).Assembly);
+            services.AddAutoMapper(typeof(AuthRepository).Assembly);
             services.AddControllers().AddNewtonsoftJson(opt =>
             {
 
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
              .AddJwtBearer(options =>

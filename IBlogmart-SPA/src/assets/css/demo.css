@@ -1296,3 +1296,14 @@ pre.prettyprint {
     position: relative;
     z-index: 2;
 }
+
+button.del,button.info{ padding: 6px 12px;}
+button.del { background: red;}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    margin-top: 110px;
+}

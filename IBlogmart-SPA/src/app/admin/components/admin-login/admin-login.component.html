@@ -7,21 +7,21 @@
                       <div class="card card-register">
                           <h3 class="title">Admin Login</h3>
                                   <form #loginForm="ngForm" (ngSubmit)="login()" class="register-form">
-                              <label>Username</label>
+                              <label class="register-form-label">Username</label>
                               <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus===true}">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text">
-                                      <i class="nc-icon nc-sun-fog-29"></i>
+                                      <i class="nc-icon nc-single-02"></i>
                                   </span>
                                 </div>
 
-                                  <input type="text" class="form-control" placeholder="Username" name="username" 
+                                  <input type="text" class="form-control" #usernameRef placeholder="Username" name="username" 
                                   (focus)="focus=true" (blur)="focus=false"
                                   required  [(ngModel)]="model.username"
                                   >
                               </div>
 
-                              <label>Password</label>
+                              <label class="register-form-label">Password</label>
                               <div class="input-group form-group-no-border" [ngClass]="{'input-group-focus':focus1===true}">
                                 <div class="input-group-prepend">
                                   <span class="input-group-text">

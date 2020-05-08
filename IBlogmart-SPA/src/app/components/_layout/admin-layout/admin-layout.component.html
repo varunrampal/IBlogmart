@@ -1,2 +1,13 @@
-<app-admin-header></app-admin-header>
-<router-outlet></router-outlet>
+<div class="wrapper">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+     <app-admin-sidebar></app-admin-sidebar>>
+    </div>
+    <div class="main-panel">
+        <app-admin-navbar></app-admin-navbar>
+        <div class="content">
+            <router-outlet></router-outlet>
+        </div>
+        <!-- Footer -->
+    </div>
+</div>
+<!-- Fixed plugin -->

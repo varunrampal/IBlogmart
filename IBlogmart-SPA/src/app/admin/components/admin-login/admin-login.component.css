@@ -12,3 +12,11 @@
     color: #fff;
     text-align: center;
 }
+
+.register-form-label
+{
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #FFFFFF;
+}

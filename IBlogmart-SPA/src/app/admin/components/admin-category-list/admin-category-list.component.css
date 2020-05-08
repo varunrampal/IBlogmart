@@ -1,0 +1,15 @@
+.page-header {
+    background-color: #F9F4F3 ;
+    background-position: center center;
+    background-size: cover;
+    min-height: 10vh;
+    max-height: 999px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -ms-flex-pack: center;
+}

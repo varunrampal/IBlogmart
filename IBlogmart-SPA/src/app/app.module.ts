@@ -1,8 +1,9 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SidebarModule } from 'ng-sidebar';
+import { TabsModule } from 'node_modules/ngx-bootstrap/tabs';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,14 @@ import { AdminRoutingModule } from './admin/admin.module';
 import { AuthService } from './_services/auth.service';
 import { AlertifyService } from './_services/alertify.service';
 import { ErrorInterceptor } from './_services/error.interceptor';
+import { ImageService } from './_services/image.service';
+
+export class CustomHammerConfig extends HammerGestureConfig  {
+  overrides = {
+      pinch: { enable: false },
+      rotate: { enable: false }
+  };
+}
 
 @NgModule({
   declarations: [
@@ -30,13 +39,15 @@ import { ErrorInterceptor } from './_services/error.interceptor';
   imports: [
     BrowserModule,
     FormsModule,
+    TabsModule.forRoot(),
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
     AdminRoutingModule,
     SidebarModule.forRoot(),
   ],
-  providers: [ErrorInterceptor, AuthService, AlertifyService],
+  providers: [ErrorInterceptor, AuthService, AlertifyService, ImageService,
+    { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,21 +1,19 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+    selector: 'app-admin-dashboard',
+    templateUrl: 'dashboard.component.html'
 })
+
 export class DashboardComponent implements OnInit {
-  private _opened: boolean = false;
-  constructor( private element: ElementRef) { }
 
-  ngOnInit() {
-  }
+  public canvas: any;
+  public ctx;
+  public chartColor;
+  public chartEmail;
+  public chartHours;
 
-  private _toggleOpened(): void {
-    this._opened = !this._opened;
-  }
-  private _toggleSidebar() {
-    this._opened = !this._opened;}
-
+    ngOnInit() {
+  
+    }
 }
