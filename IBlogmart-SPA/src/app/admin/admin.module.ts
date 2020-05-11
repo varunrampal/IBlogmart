@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxGalleryModule } from 'ngx-gallery';
 import { TabsModule } from '../../../node_modules/ngx-bootstrap/tabs';
@@ -23,6 +23,7 @@ import { AdminImageEditorComponent } from './shared/admin-image-editor/admin-ima
 @NgModule({
   imports: [CommonModule,
             FormsModule,
+            ReactiveFormsModule,
             NgxGalleryModule,
             NgbModule,
             TabsModule.forRoot(),

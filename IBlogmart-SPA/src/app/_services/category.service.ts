@@ -35,6 +35,10 @@ getcategoryimages(catId: number): Observable<Image[]> {
   return this.http.get<Category>(this.baseUrl + 'getcategory/' + catId, httppOtions);
  }
 
+ updatecategory(category: Category) {
+     return this.http.put(this.baseUrl + 'updatecategory', category, httppOtions);
+ }
+
  deleteImage(id: number) {
  return this.http.delete(environment.apiUrl + 'image/delete/' + id, httppOtions);
 

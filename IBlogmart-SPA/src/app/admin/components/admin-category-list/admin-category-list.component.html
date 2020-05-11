@@ -6,7 +6,7 @@
       </div>
       
       <div class="card-body">
-        <div class="pull-right"><button class="btn btn-primary btn-block">Add New</button></div>
+        <div class="pull-right"><button class="btn btn-default btn-block">Add New</button></div>
         <div class="table-responsive">
           <table class="table">
             <thead class=" text-primary">
@@ -15,6 +15,9 @@
               </th>
               <th>
                 Name
+              </th>
+              <th>
+                Active
               </th>
              <th>Edit</th>
              <th>Delete</th>
@@ -27,6 +30,9 @@
                 <td>
                   <a [routerLink]="['/admin/category/details',category.id]" style="cursor: pointer;" title="Category details"> {{category.name}}</a>
                
+                </td>
+                <td>
+                  <input type="checkbox" [checked] = "category.active" disabled/>
                 </td>
                 <td>
                   <a [routerLink]="['/admin/category/edit',category.id]" style="cursor: pointer;" title="Edit category"> <i class="fa fa-edit fa-w-18 fa-2x"></i></a>

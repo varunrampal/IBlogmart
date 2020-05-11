@@ -4,7 +4,7 @@
      
         <div class="card-header">
           <h5 class="card-title">{{ category.name }}</h5>
-          <p class="card-category">Active: {{ category.active }}</p>
+          <p class="card-category">Active: <input type="checkbox" [checked]="category.active" disabled></p>
         </div>
         <div class="card-body">
             <img [src]= "category.mainImageUrl" height="200px" width="200px"/>

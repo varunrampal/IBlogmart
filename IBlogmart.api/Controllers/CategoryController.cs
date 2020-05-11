@@ -30,9 +30,7 @@ namespace IBlogmart.api.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> Create(CategoryDto categoryDto)
         {
-            //validate request
-
-            if (await _repo.CategoryExists(categoryDto.Name.ToLower()))
+           if (await _repo.CategoryNameExists(categoryDto.Name.ToLower()))
                 return BadRequest("Category already exists");
 
             var categoryToCreate = new Category
@@ -58,6 +56,29 @@ namespace IBlogmart.api.Controllers
         public async Task<IActionResult> GetCategory(int catId)
         {
            return Ok(await _repo.GetCategory(catId));
+        }
+
+        [HttpPut("updatecategory")]
+        public async Task<IActionResult> UpdateCategory(CategoryDto categoryDto)
+        {
+            if(!await _repo.CategoryExists(categoryDto.Id))
+                return BadRequest("Category doesn't exists");
+            
+             if (await _repo.CategoryNameExists(categoryDto.Name.ToLower(), categoryDto.Id))
+                return BadRequest("Category with the same name already exists");
+
+           var categoryToUpdate = new Category
+            {
+                Id = categoryDto.Id,
+                Name = categoryDto.Name,
+                Active = categoryDto.Active
+            };
+
+            if(await _repo.UpdateCategory(categoryToUpdate))
+              return Ok();
+
+           return BadRequest("Unable to update");
+
         }
 
     }

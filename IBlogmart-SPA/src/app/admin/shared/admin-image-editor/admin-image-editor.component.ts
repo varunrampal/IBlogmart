@@ -96,12 +96,14 @@ onErrorItem(item: FileItem, response: string, status: number, headers: ParsedRes
   setMainImage(image: Image) {
     this.imageService.setMainImage(image.id, this.id, this.type).subscribe(() => {
        this.currentMain = this.images.filter(i => i.isMain === true)[0];
-       this.currentMain.isMain = false;
+       if (this.currentMain != null) {
+            this.currentMain.isMain = false;
+        }
        image.isMain = true;
        this.getImageChange.emit(image.url);
 
     }, error => {
-       this.alertifyService.error(error);
+       this.alertifyService.error('Failed to set as main image');
 
     });
   }

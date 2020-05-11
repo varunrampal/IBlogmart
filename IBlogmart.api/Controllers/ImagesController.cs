@@ -114,7 +114,8 @@ namespace IBlogmart.api.Controllers
                 if (imageFromRepo.isMain)
                     return BadRequest("This is alreadya main image");
                 var currentMainImage = await _repo.GetMainImage(id, type);
-                currentMainImage.isMain = false;
+                if(currentMainImage != null)
+                  currentMainImage.isMain = false;
 
                 imageFromRepo.isMain = true;
 

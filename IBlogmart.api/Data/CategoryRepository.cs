@@ -21,9 +21,20 @@ namespace IBlogmart.api.Data
             return category;
         }
 
-        public async Task<bool> CategoryExists(string categoryName)
+        public async Task<bool> CategoryNameExists(string categoryName, int Id)
         {
-            if (await _Context.Categories.AnyAsync(x => x.Name == categoryName))
+          if(Id !=0)
+          {
+                return await _Context.Categories.AnyAsync(x => x.Name == categoryName && x.Id!= Id);
+          }
+          else
+          {
+               return await _Context.Categories.AnyAsync(x => x.Name == categoryName);
+          }
+        }
+        public async Task<bool> CategoryExists(int id)
+        {
+            if (await _Context.Categories.AnyAsync(x => x.Id == id))
                 return true;
 
             return false;
@@ -80,6 +91,17 @@ namespace IBlogmart.api.Data
         public void Delete<T>(T entity) where T : class
         {
            _Context.Remove(entity);
+        }
+
+        public async Task<bool> UpdateCategory(Category category){
+
+            var catFromRepo =  _Context.Categories.SingleOrDefault(c => c.Id == category.Id);
+            catFromRepo.Name = category.Name;
+            catFromRepo.Active = category.Active;
+            if (catFromRepo != null)
+                 return await  SaveAll();
+            return false;
+            
         }
     }
 }
