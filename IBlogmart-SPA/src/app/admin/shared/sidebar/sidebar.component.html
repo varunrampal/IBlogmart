@@ -10,11 +10,25 @@
       IBlogmart - Admin    </a>
   </div>
     <ul class="nav">
-        <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
+        <!-- <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
             <a [routerLink]="[menuItem.path]">
                 <i class="nc-icon {{menuItem.icon}}"></i>
                 <p>{{menuItem.title}}</p>
             </a>
-        </li>
+        </li> -->
+      
+        <li  [class.active]="menuItem === 'dashboard'" (click) ="menuItemClicked('dashboard')">
+          <a  [routerLink]="['/admin/dashboard']">
+              <i class="nc-icon nc-bank"></i>
+              <p>Dashboard</p>
+          </a>
+      </li>
+
+        <li [class.active]="menuItem === 'category'" (click) ="menuItemClicked('category')">
+          <a  [routerLink]="['/admin/category/list']">
+              <i class="nc-icon nc-tile-56"></i>
+              <p>Category</p>
+          </a>
+      </li>
     </ul>
 </div>

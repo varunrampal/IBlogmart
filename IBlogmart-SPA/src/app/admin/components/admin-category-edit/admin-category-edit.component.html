@@ -25,6 +25,7 @@
                   formControlName="categoryName"
                   id="name"
                  required
+                 pattern="/[A-Z]{5}\d{4}[A-Z]{1}/i"
                  />
               </div>
 
@@ -33,7 +34,7 @@
                 </label>
               </div>
 
-              <button type="submit" class="btn btn-default" [disabled]="!editForm.valid">Save</button>
+              <button type="submit" class="btn btn-default" >Save</button>
             </form>
           </tab>
           <tab heading="Edit Images">

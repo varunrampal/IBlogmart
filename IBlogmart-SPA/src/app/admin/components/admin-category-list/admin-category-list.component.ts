@@ -3,6 +3,7 @@ import { CategoryService } from 'src/app/_services/category.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { ActivatedRoute } from '@angular/router';
 import { Category } from 'src/app/_models/category';
+import { LocationService } from 'src/app/_services/location.service';
 
 @Component({
   selector: 'app-admin-category-list',
@@ -15,10 +16,12 @@ export class AdminCategoryListComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private alertifyService: AlertifyService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private locationService: LocationService
   ) {}
 
   ngOnInit() {
+    this.locationService.pagetitle = 'Category List';
     this.route.data.subscribe((data) => {
       this.categories = data.categories;
       // console.log(data);

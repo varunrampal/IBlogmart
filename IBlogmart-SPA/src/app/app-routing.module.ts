@@ -15,12 +15,16 @@ const routes: Routes = [
       path: '',
       component: AppLayoutComponent,
       children: [
-        { path: '', redirectTo: 'home', pathMatch: 'full' },
+
         { path: 'home', component: HomeComponent},
-        { path: 'login', component: AdminLoginComponent}
+        { path: 'login', component: AdminLoginComponent},
+        { path: 'categories', loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule) },
+        { path: '', redirectTo: 'home', pathMatch: 'full' }
 
         ]
-    }
+    },
+
+
 
   ];
 

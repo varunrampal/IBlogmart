@@ -45,7 +45,7 @@ namespace IBlogmart.api.Controllers
             return StatusCode(201);
 
         }
-
+        [AllowAnonymous]
         [HttpGet("getall")]
         public async Task<IActionResult> GetAll()
         {

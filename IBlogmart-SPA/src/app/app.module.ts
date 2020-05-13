@@ -18,6 +18,7 @@ import { AuthService } from './_services/auth.service';
 import { AlertifyService } from './_services/alertify.service';
 import { ErrorInterceptor } from './_services/error.interceptor';
 import { ImageService } from './_services/image.service';
+import { LocationService } from './_services/location.service';
 
 export class CustomHammerConfig extends HammerGestureConfig  {
   overrides = {
@@ -46,7 +47,11 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     AdminRoutingModule,
     SidebarModule.forRoot(),
   ],
-  providers: [ErrorInterceptor, AuthService, AlertifyService, ImageService,
+  providers: [ErrorInterceptor,
+              AuthService,
+              AlertifyService,
+              ImageService,
+              LocationService,
     { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }],
   bootstrap: [AppComponent],
 })

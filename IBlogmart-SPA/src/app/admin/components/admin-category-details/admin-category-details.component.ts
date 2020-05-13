@@ -8,6 +8,7 @@ import { Image } from 'src/app/_models/image';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from 'src/app/_services/category.service';
 import { Category } from 'src/app/_models/category';
+import { LocationService } from 'src/app/_services/location.service';
 
 @Component({
   selector: 'app-admin-category-details',
@@ -19,19 +20,22 @@ export class AdminCategoryDetailsComponent implements OnInit {
   galleryImages: NgxGalleryImage[];
   images: Image[];
   catId: any;
-  category: Category;
+  category: Category = null;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private locationService: LocationService
   ) {}
 
   ngOnInit() {
-      this.activatedRoute.params.subscribe((params) => {
+   
+     this.locationService.pagetitle = 'Category details';
+     this.activatedRoute.params.subscribe((params) => {
       this.catId = params.id;
     });
 
-      this.galleryOptions = [
+     this.galleryOptions = [
       {
         width: '500px',
         height: '500px',
@@ -41,7 +45,8 @@ export class AdminCategoryDetailsComponent implements OnInit {
         preview: false,
       },
     ];
-      this.galleryImages = this.getImages();
+     
+     this.galleryImages = this.getImages();
   }
   getImages() {
     const imageUrls = [];

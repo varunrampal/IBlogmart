@@ -6,6 +6,7 @@ import { CategoryService } from 'src/app/_services/category.service';
 import { Category } from 'src/app/_models/category';
 import { Image } from '../../../_models/image';
 import { AlertifyService } from 'src/app/_services/alertify.service';
+import { LocationService } from 'src/app/_services/location.service';
 
 const URL = environment.apiUrl;
 @Component({
@@ -26,7 +27,9 @@ export class AdminCategoryEditComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private categoryService: CategoryService,
-    private alertify: AlertifyService) {
+    private alertify: AlertifyService,
+    private locationService: LocationService) {
+     
     this.activatedRoute.params.subscribe((params) => {
       this.id = params.id;
       categoryService.getcategory(params.id).subscribe((res) => {
@@ -50,6 +53,7 @@ export class AdminCategoryEditComponent implements OnInit {
   }
 
  ngOnInit() {
+  this.locationService.pagetitle = 'Category Edit';
   }
 
   updateMainImage(imageUrl: string) {
