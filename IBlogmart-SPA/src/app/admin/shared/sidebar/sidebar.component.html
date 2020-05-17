@@ -30,5 +30,12 @@
               <p>Category</p>
           </a>
       </li>
+
+      <li [class.active]="menuItem === 'subcategory'" (click) ="menuItemClicked('subcategory')">
+        <a  [routerLink]="['/admin/subcategory/list']">
+            <i class="nc-icon nc-tile-56"></i>
+            <p>SubCategory</p>
+        </a>
+    </li>
     </ul>
 </div>

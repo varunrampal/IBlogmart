@@ -43,4 +43,8 @@ getcategoryimages(catId: number): Observable<Image[]> {
  return this.http.delete(environment.apiUrl + 'image/delete/' + id, httppOtions);
 
  }
+
+  isalreadyexists(name: string, id: number) {
+    return this.http.get<boolean>(this.baseUrl + 'exists/' + name + '/' + id, httppOtions);
+  }
 }

@@ -33,7 +33,7 @@ export class AdminCategoryListComponent implements OnInit {
           res.mainImageUrl =  '/assets/img/noimage.png';
         }
       });
-      console.log( this.categories);
+     
     });
   }
 

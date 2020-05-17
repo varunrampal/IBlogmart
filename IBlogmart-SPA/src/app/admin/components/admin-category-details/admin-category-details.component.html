@@ -3,11 +3,11 @@
     <div class="card">
      
         <div class="card-header">
-          <h5 class="card-title">{{ category.name }}</h5>
-          <p class="card-category">Active: <input type="checkbox" [checked]="category.active" disabled></p>
+          <h5 class="card-title">{{ category?.name }}</h5>
+          <p class="card-category">Active: <input type="checkbox" [checked]="category?.active" disabled></p>
         </div>
         <div class="card-body">
-            <img [src]= "category.mainImageUrl" height="200px" width="200px"/>
+            <img [src]= "category?.mainImageUrl" height="200px" width="200px"/>
     
         </div>
       
@@ -17,17 +17,15 @@
     <div class="card card-chart">
       <div class="card-body">
         <tabset>
-          <tab heading="Sub Categories" id="tab1"
-            ><ul>
-              <li>Sub category 1</li>
-              <li>Sub category 2</li>
-              <li>Sub category 3</li>
-              <li>Sub category 4</li>
-              <li>Sub category 5</li>
-            </ul>
+          <tab heading="Sub Categories" id="tab1">
+            <ng-container *ngIf="subCategories?.length > 0">
+              <ul *ngFor = "let subcategory of subCategories">
+                <li>{{subcategory.name}}</li>
+               </ul>
+            </ng-container>
           </tab>
-          <tab heading="Images"
-            ><ngx-gallery
+          <tab heading="Images">
+            <ngx-gallery
               [options]="galleryOptions"
               [images]="galleryImages"
             ></ngx-gallery

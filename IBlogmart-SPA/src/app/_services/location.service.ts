@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
+import { Category } from '../_models/category';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocationService {
 pagetitle: string;
+categoriesEmitted = new EventEmitter<Category[]>();
 
   constructor() { }
 
@@ -15,6 +17,10 @@ pagetitle: string;
     switch (type[2]) {
         case 'category': {
           menuItem = 'category';
+          break;
+        }
+        case 'subcategory': {
+          menuItem = 'subcategory';
           break;
         }
         case 'dashboard': {

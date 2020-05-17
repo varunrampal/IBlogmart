@@ -9,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from 'src/app/_services/category.service';
 import { Category } from 'src/app/_models/category';
 import { LocationService } from 'src/app/_services/location.service';
+import { Subcategory } from 'src/app/_models/subcategory';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-admin-category-details',
@@ -19,6 +21,7 @@ export class AdminCategoryDetailsComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   images: Image[];
+  subCategories: Subcategory[];
   catId: any;
   category: Category = null;
 
@@ -29,13 +32,8 @@ export class AdminCategoryDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-   
-     this.locationService.pagetitle = 'Category details';
-     this.activatedRoute.params.subscribe((params) => {
-      this.catId = params.id;
-    });
 
-     this.galleryOptions = [
+    this.galleryOptions = [
       {
         width: '500px',
         height: '500px',
@@ -45,13 +43,25 @@ export class AdminCategoryDetailsComponent implements OnInit {
         preview: false,
       },
     ];
-     
-     this.galleryImages = this.getImages();
+
+
+    this.locationService.pagetitle = 'Category details';
+    this.activatedRoute.params.subscribe((params) => {
+      this.catId = params.id;
+      this.galleryImages = this.getImages();
+      this.category = this.category;
+    });
+
+
+
   }
   getImages() {
     const imageUrls = [];
     this.categoryService.getcategory(this.catId).subscribe((res) => {
       this.category = res;
+      // console.log(res);
+
+      this.subCategories = this.category.subCategories;
 
       const imgObj = res.images.find((img) => img.isMain === true);
 

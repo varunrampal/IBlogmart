@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { LocationService } from 'src/app/_services/location.service';
 
 @Component({
   selector: 'app-home',
@@ -7,10 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor( private route: ActivatedRoute, private locationService: LocationService) { }
 
   ngOnInit() {
-    console.log('homdsdfsdfe');
+    this.route.data.subscribe((data) => {
+      this.locationService.categoriesEmitted.emit(data.categories);
+      });
   }
-
 }

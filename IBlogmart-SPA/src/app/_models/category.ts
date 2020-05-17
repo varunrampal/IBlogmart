@@ -7,5 +7,12 @@ export interface Category {
         id: number;
         url: string;
         isMain: boolean;
+        type?: number;
+    }];
+    subCategories: [ {
+        id: number;
+        name: string;
+        active: boolean;
+        categoryId: number;
     }];
  }

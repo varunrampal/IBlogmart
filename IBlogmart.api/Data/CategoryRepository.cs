@@ -41,11 +41,11 @@ namespace IBlogmart.api.Data
         }
         public async Task<IEnumerable<Category>> GetAll()
         {
-           return  await _Context.Categories.Include(i => i.Images).ToListAsync();
+           return  await _Context.Categories.Include(i => i.Images).Include(s => s.SubCategories).ToListAsync();
         }
         public async Task<Category> GetCategory(int catId)
         {
-           return  await _Context.Categories.Include(i => i.Images).FirstOrDefaultAsync(c => c.Id == catId);
+           return  await _Context.Categories.Include(i => i.Images).Include(s => s.SubCategories).FirstOrDefaultAsync(c => c.Id == catId);
         }
 
         public async Task<bool> AddImage(Image image)

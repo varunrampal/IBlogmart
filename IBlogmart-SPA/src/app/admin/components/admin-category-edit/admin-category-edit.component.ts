@@ -19,6 +19,9 @@ export class AdminCategoryEditComponent implements OnInit {
    category: Category;
    images: Image[];
    type = 'cat';
+   categoryExists: false;
+   nameExists = false;
+   empty = false;
    editForm = new FormGroup({
     categoryName: new FormControl(''),
     isActive: new FormControl(''),
@@ -29,7 +32,7 @@ export class AdminCategoryEditComponent implements OnInit {
     private categoryService: CategoryService,
     private alertify: AlertifyService,
     private locationService: LocationService) {
-     
+
     this.activatedRoute.params.subscribe((params) => {
       this.id = params.id;
       categoryService.getcategory(params.id).subscribe((res) => {
@@ -39,8 +42,13 @@ export class AdminCategoryEditComponent implements OnInit {
           isActive: this.category.active
 
          });
+        this.images = [];
+        this.category.images.map(image => {
+              if (image.type === 0) {
+                this.images.push(image);
+              }
 
-        this.images = this.category.images;
+        });
         const imgObj = res.images.find((img) => img.isMain === true);
         if (imgObj != null) {
           this.category.mainImageUrl = imgObj.url;
@@ -58,6 +66,20 @@ export class AdminCategoryEditComponent implements OnInit {
 
   updateMainImage(imageUrl: string) {
      this.category.mainImageUrl = imageUrl;
+
+  }
+
+  isNameExists(isExists: boolean) {
+    this.nameExists = isExists;
+    console.log('nameExists' + isExists);
+    if (isExists) {
+      this.alertify.error('Category already exists');
+    }
+  }
+
+  isEmpty(empty: boolean) {
+     this.empty = empty;
+     if (empty) { this.alertify.error('Please enter category'); }
 
   }
 

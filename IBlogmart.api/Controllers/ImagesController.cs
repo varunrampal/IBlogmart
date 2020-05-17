@@ -56,12 +56,16 @@ namespace IBlogmart.api.Controllers
 
 
         [HttpPost]
-        [Route("api/category/{categoryId}/{isMain}/Image")]
-        public async Task<IActionResult> AddCategoryImage(int categoryId, int isMain, [FromForm]ImageForUploadDto imageForUploadDto)
+        // [Route("api/category/{categoryId}/{isMain}/Image")]
+        [Route("api/images/{categoryId}/{id}/{type}/Upload")]
+
+       // public async Task<IActionResult> AddCategoryImage(int categoryId, int isMain, [FromForm]ImageForUploadDto imageForUploadDto)
+        public async Task<IActionResult> AddCategoryImage(int categoryId, int id, string type ,[FromForm]ImageForUploadDto imageForUploadDto)
         {
 
             var file = imageForUploadDto.File;
             var uploadResult = new ImageUploadResult();
+            int imageType = 0;
 
             if (file.Length > 0)
             {
@@ -85,17 +89,17 @@ namespace IBlogmart.api.Controllers
 
             //var image =  _mapper.Map<Image>(imageForUploadDto);
 
-            bool isMainImage = true;
-
-            if (isMain == 0)
-                isMainImage = false;
+            if(type == "subcat")
+               imageType = 1;
 
             var image = new Image
             {
                 CategoryId = categoryId,
                 Url = imageForUploadDto.Url,
                 PublicId = imageForUploadDto.PublicId,
-                isMain = isMainImage
+                isMain = false,
+                type = imageType,
+                SubCategoryId = id
             };
 
             await _repo.AddImage(image);

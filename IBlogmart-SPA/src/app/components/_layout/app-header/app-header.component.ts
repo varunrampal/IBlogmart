@@ -2,6 +2,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { CategoryService } from 'src/app/_services/category.service';
 import { Category } from 'src/app/_models/category';
+import { LocationService } from 'src/app/_services/location.service';
 
 @Component({
   selector: 'app-app-header',
@@ -17,20 +18,30 @@ export class AppHeaderComponent implements OnInit {
 
   constructor(public location: Location,
               private element: ElementRef,
-              private categoryService: CategoryService) {
+              private categoryService: CategoryService,
+              private locationService: LocationService) {
       this.sidebarVisible = false;
   }
 
   ngOnInit() {
 
-    this.categoryService.getall().subscribe(res => {
-
+    this.locationService.categoriesEmitted.subscribe(res => {
         res.map((category) => {
             if (category.active) {
                this.links.push({title: category.name, path: '/' + category.name});
             }
         });
-      });
+
+    });
+
+    // this.categoryService.getall().subscribe(res => {
+
+    //     res.map((category) => {
+    //         if (category.active) {
+    //            this.links.push({title: category.name, path: '/' + category.name});
+    //         }
+    //     });
+    //   });
 
     const navbar: HTMLElement = this.element.nativeElement;
     this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];

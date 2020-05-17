@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">Details</h5>
+      </div>
+      <div class="card-body">
+        <div>
+          <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="name">Select Category:</label>
+              <select  class="form-control" (change)="filterCategories($event.target.value)" formControlName="categoryId">
+                <option value="0">--Select--</option>
+                <option *ngFor="let category of categories" value={{category.id}}>
+                  {{category.name}}
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="name">SubCategory Name:</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="subCategoryName"
+                id="subCategoryname"
+                (focusout)="checkCategoryName()"
+                required
+                #subCatName
+                pattern="/[A-Z]{5}\d{4}[A-Z]{1}/i"
+              />
+            </div>
+
+            <div class="checkbox">
+              <label
+                ><input type="checkbox" formControlName="isActive" /> Active
+              </label>
+            </div>
+            <!-- [disabled]="!createForm.valid" -->
+            <button type="submit" class="btn btn-default"  >Save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card card-chart">
+      <div class="card-body">
+        <tabset>
+          <tab heading="Upload Images" id="tab1">
+            <app-admin-image-editor *ngIf="subCategory != null && subCategory.id > 0 else notcreated"
+              [images]="images"
+              [type]="type"
+              [catId] = "catId"
+              [subCatId] = "subCatId"
+              (getImageChange)="updateMainImage($event)"
+            >
+            </app-admin-image-editor>
+            <ng-template #notcreated>
+              To upload images, please create a subcategory.
+            </ng-template>
+          </tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>

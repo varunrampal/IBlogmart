@@ -45,6 +45,13 @@ namespace IBlogmart.api.Controllers
             return StatusCode(201);
 
         }
+
+         [HttpGet("Exists/{name}/{id}")]
+         public async Task<IActionResult> Exists(string name, int id)
+         {
+            return Ok(await _repo.CategoryNameExists(name.ToLower(), id));
+         }
+
         [AllowAnonymous]
         [HttpGet("getall")]
         public async Task<IActionResult> GetAll()

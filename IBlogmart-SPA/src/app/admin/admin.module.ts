@@ -18,7 +18,10 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { AdminCategoryDetailsComponent } from './components/admin-category-details/admin-category-details.component';
 import { AdminCategoryEditComponent } from './components/admin-category-edit/admin-category-edit.component';
 import { AdminImageEditorComponent } from './shared/admin-image-editor/admin-image-editor.component';
-
+import { AdminSubcategoryListComponent } from './components/admin-subcategory-list/admin-subcategory-list.component';
+import { AdminSubcategoryCreateComponent } from './components/admin-subcategory-create/admin-subcategory-create.component';
+import { SubCategoryService } from '../_services/subcategory.service';
+import { IsalreadyexistsDirective } from '../_directives/isalreadyexists.directive';
 
 @NgModule({
   imports: [CommonModule,
@@ -40,8 +43,12 @@ import { AdminImageEditorComponent } from './shared/admin-image-editor/admin-ima
     AdminCategoryListComponent,
     AdminCategoryDetailsComponent,
     AdminCategoryEditComponent,
-    AdminImageEditorComponent
+    AdminImageEditorComponent,
+    AdminSubcategoryListComponent,
+    AdminSubcategoryCreateComponent,
+    IsalreadyexistsDirective
   ],
-  providers: [CategoryResolver]
+ 
+  providers: [CategoryResolver, SubCategoryService]
 })
 export class AdminRoutingModule {}

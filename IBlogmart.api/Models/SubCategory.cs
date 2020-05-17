@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace IBlogmart.api.Models
@@ -10,5 +11,6 @@ namespace IBlogmart.api.Models
         public bool Active {get;set;}
         public Category Category {get;set;}
         public int CategoryId {get; set;}
+        public ICollection<Image> Images {get;set;}
     }
 }

@@ -7,6 +7,7 @@ import { Image } from '../../../_models/image';
 import { ImageService } from 'src/app/_services/image.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { __importDefault } from 'tslib';
+import { SubCategoryService } from 'src/app/_services/subcategory.service';
 
 const URL = environment.apiUrl;
 @Component({
@@ -19,21 +20,24 @@ export class AdminImageEditorComponent implements OnInit {
   hasBaseDropZoneOver: boolean;
   hasAnotherDropZoneOver: boolean;
   response: string;
-  id: number;
+
   currentMain: Image;
   @Input() images: Image[];
   @Input() type: string;
+  @Input() catId: number;
+  @Input() subCatId: number;
   @Output() getImageChange = new EventEmitter<string>();
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private categoryService: CategoryService,
+    private subCategoryService: SubCategoryService,
     private imageService: ImageService,
     private alertifyService: AlertifyService
   ) {
-    this.activatedRoute.params.subscribe((params) => {
-      this.id = params.id;
-    });
+    // this.activatedRoute.params.subscribe((params) => {
+    //   this.id = params.id;
+    // });
   }
 
   ngOnInit() {
@@ -43,7 +47,9 @@ export class AdminImageEditorComponent implements OnInit {
 
   initializeUploader() {
     this.uploader = new FileUploader({
-      url: URL + 'category/' +  this.id + '/0/Image',
+      // images/{categoryId}/{id}/{type}/Upload
+     // url: URL + 'category/' +  this.id + '/0/Image',
+      url: URL + 'images/' +  this.catId + '/' + this.subCatId + '/' + this.type + '/upload',
       authToken: 'Bearer ' + localStorage.getItem('token'),
       isHTML5: true,
       allowedFileType: ['image'],
@@ -67,10 +73,17 @@ export class AdminImageEditorComponent implements OnInit {
       //   this.images.push(image);
       // }
 
+      if (this.type === 'cat') {
+        this.categoryService.getcategory(this.catId).subscribe((res) => {
+          this.images = res.images;
+        });
+      } else if (this.type === 'subcat') {
 
-      this.categoryService.getcategory(this.id).subscribe((res) => {
-        this.images = res.images;
-      });
+        this.subCategoryService.getimages(this.subCatId).subscribe((res) => {
+          this.images = res;
+        });
+      }
+
     };
   }
 
@@ -94,7 +107,7 @@ onErrorItem(item: FileItem, response: string, status: number, headers: ParsedRes
   }
 
   setMainImage(image: Image) {
-    this.imageService.setMainImage(image.id, this.id, this.type).subscribe(() => {
+    this.imageService.setMainImage(image.id, this.catId, this.type).subscribe(() => {
        this.currentMain = this.images.filter(i => i.isMain === true)[0];
        if (this.currentMain != null) {
             this.currentMain.isMain = false;
