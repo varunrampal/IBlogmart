@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/_services/category.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from 'src/app/_models/category';
 import { LocationService } from 'src/app/_services/location.service';
 
@@ -17,6 +17,7 @@ export class AdminCategoryListComponent implements OnInit {
     private categoryService: CategoryService,
     private alertifyService: AlertifyService,
     private route: ActivatedRoute,
+    private router: Router,
     private locationService: LocationService
   ) {}
 
@@ -39,5 +40,10 @@ export class AdminCategoryListComponent implements OnInit {
 
   deleteCategory(id: number) {
     console.log(id);
+  }
+
+  createCategory()
+  {
+    this.router.navigate(['/admin/category/create']);
   }
 }

@@ -19,7 +19,6 @@ import { AlertifyService } from './_services/alertify.service';
 import { ErrorInterceptor } from './_services/error.interceptor';
 import { ImageService } from './_services/image.service';
 import { LocationService } from './_services/location.service';
-import { IsalreadyexistsDirective } from './_directives/isalreadyexists.directive';
 
 export class CustomHammerConfig extends HammerGestureConfig  {
   overrides = {

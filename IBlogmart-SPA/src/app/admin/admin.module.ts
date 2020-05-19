@@ -12,7 +12,7 @@ import { AdminLoginComponent } from './components/admin-login/admin-login.compon
 import { AdminLayoutComponent } from '../components/_layout/admin-layout/admin-layout.component';
 import { AdminHeaderComponent } from '../components/_layout/admin-header/admin-header.component';
 import { AdminCategoryListComponent } from './components/admin-category-list/admin-category-list.component';
-import { CategoryResolver } from '../_resolvers/categories.resolver';
+import { CategoriesResolver } from '../_resolvers/categories.resolver';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { AdminCategoryDetailsComponent } from './components/admin-category-details/admin-category-details.component';
@@ -22,6 +22,8 @@ import { AdminSubcategoryListComponent } from './components/admin-subcategory-li
 import { AdminSubcategoryCreateComponent } from './components/admin-subcategory-create/admin-subcategory-create.component';
 import { SubCategoryService } from '../_services/subcategory.service';
 import { IsalreadyexistsDirective } from '../_directives/isalreadyexists.directive';
+import { CategoryResolver } from '../_resolvers/category.resolver';
+import { AdminCategoryCreateComponent } from './components/admin-category-create/admin-category-create.component';
 
 @NgModule({
   imports: [CommonModule,
@@ -46,9 +48,12 @@ import { IsalreadyexistsDirective } from '../_directives/isalreadyexists.directi
     AdminImageEditorComponent,
     AdminSubcategoryListComponent,
     AdminSubcategoryCreateComponent,
-    IsalreadyexistsDirective
+    IsalreadyexistsDirective,
+    AdminCategoryCreateComponent
   ],
  
-  providers: [CategoryResolver, SubCategoryService]
+  providers: [CategoriesResolver,
+              CategoryResolver,
+              SubCategoryService]
 })
 export class AdminRoutingModule {}

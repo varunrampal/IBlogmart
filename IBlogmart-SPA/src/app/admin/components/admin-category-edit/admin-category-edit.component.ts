@@ -30,13 +30,18 @@ export class AdminCategoryEditComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private categoryService: CategoryService,
+    private route: ActivatedRoute,
     private alertify: AlertifyService,
     private locationService: LocationService) {
 
-    this.activatedRoute.params.subscribe((params) => {
-      this.id = params.id;
-      categoryService.getcategory(params.id).subscribe((res) => {
-        this.category = res;
+      this.route.data.subscribe((data) => {
+        
+        this.activatedRoute.params.subscribe((params) => {
+          this.id = params.id;
+        });
+
+        this.category = data.category;
+
         this.editForm.setValue({
           categoryName: this.category.name,
           isActive: this.category.active
@@ -49,15 +54,43 @@ export class AdminCategoryEditComponent implements OnInit {
               }
 
         });
-        const imgObj = res.images.find((img) => img.isMain === true);
+        const imgObj = data.category.images.find((img) => img.isMain === true);
         if (imgObj != null) {
           this.category.mainImageUrl = imgObj.url;
         } else {
           this.category.mainImageUrl =  '/assets/img/noimage.png';
         }
 
+
       });
-    });
+
+     // old code
+
+    //   this.activatedRoute.params.subscribe((params) => {
+    //   this.id = params.id;
+    //   categoryService.getcategory(params.id).subscribe((res) => {
+    //     this.category = res;
+    //     this.editForm.setValue({
+    //       categoryName: this.category.name,
+    //       isActive: this.category.active
+
+    //      });
+    //     this.images = [];
+    //     this.category.images.map(image => {
+    //           if (image.type === 0) {
+    //             this.images.push(image);
+    //           }
+
+    //     });
+    //     const imgObj = res.images.find((img) => img.isMain === true);
+    //     if (imgObj != null) {
+    //       this.category.mainImageUrl = imgObj.url;
+    //     } else {
+    //       this.category.mainImageUrl =  '/assets/img/noimage.png';
+    //     }
+
+    //   });
+    // });
   }
 
  ngOnInit() {
