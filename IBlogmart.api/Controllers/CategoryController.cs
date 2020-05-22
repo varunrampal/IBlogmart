@@ -42,7 +42,7 @@ namespace IBlogmart.api.Controllers
 
             var createdCategory = await _repo.Create(categoryToCreate);
 
-            return StatusCode(201);
+            return Ok(createdCategory);
 
         }
 

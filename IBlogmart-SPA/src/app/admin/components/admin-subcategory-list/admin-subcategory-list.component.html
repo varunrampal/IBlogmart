@@ -1,1 +1,95 @@
-<p>admin-subcategory-list works!</p>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="pull-right"><button class="btn btn-default btn-block" (click) = "createsubcategory()" >Add New</button></div>
+        <div class="pull-left">
+          <div class="form-group">
+           
+            <select
+              class="form-control"
+              (change)="filterCategories($event.target.value)">
+              <option value="0">--Select Category--</option>
+              <option
+                *ngFor="let category of categories"
+                value="{{ category.id }}"
+              >
+                {{ category.name }}
+              </option>
+            </select>
+           </div>
+        </div>
+        <div class="table-responsive" >
+          <table class="table" *ngIf="subCategories != null && subCategories.length > 0 else nodata">
+            <thead class="text-primary">
+              <th>
+                Image
+              </th>
+              <th>
+                Name
+              </th>
+              <th>
+                Category
+              </th>
+              <th>
+                Active
+              </th>
+              <th>Edit</th>
+              <!-- <th>Delete</th> -->
+            </thead>
+            <tbody>
+              <tr *ngFor="let subCategory of subCategories">
+                <td>
+                  <img
+                    [src]="subCategory.mainImageUrl"
+                    class="img-thumbnail p-1"
+                    height="150px"
+                    width="150px"
+                  />
+                </td>
+                <td>
+                  <a
+                    [routerLink]="['/admin/subcategory/details', subCategory.id]"
+                    style="cursor: pointer;"
+                    title="Category details"
+                  >
+                    {{ subCategory.name }}</a
+                  >
+                </td>
+                <td>
+                    {{subCategory.name}}
+                </td>
+                <td>
+                  <input type="checkbox" [checked]="subCategory.active" disabled />
+                </td>
+                <td>
+                  <a
+                    [routerLink]="['/admin/subcategory/edit', subCategory.id,subCategory.categoryId]"
+                    style="cursor: pointer;"
+                    title="Edit category"
+                  >
+                    <i class="fa fa-edit fa-w-18 fa-2x"></i
+                  ></a>
+                </td>
+                <td>
+                  <!-- <a
+                    style="cursor: pointer;"
+                    (click)="deleteCategory(category.id)"
+                    title="Delete category"
+                  >
+                    <i class="fa fa-trash fa-2x"></i
+                  ></a> -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <ng-template #nodata>No data found</ng-template>
+        </div>
+        
+      <div>
+       
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

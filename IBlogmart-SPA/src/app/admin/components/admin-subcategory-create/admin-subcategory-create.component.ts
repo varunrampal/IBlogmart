@@ -29,7 +29,6 @@ export class AdminSubcategoryCreateComponent implements OnInit, AfterViewInit {
   catId: number;
   subCatId: number;
 
-
   @ViewChild('subCatName', {static: false}) subCatName;
   createForm = new FormGroup({
     categoryId: new FormControl(''),
@@ -80,6 +79,8 @@ export class AdminSubcategoryCreateComponent implements OnInit, AfterViewInit {
   }
 
   filterCategories(val: any) {
+
+   
     this.createForm.patchValue({
       categoryId: val
     });

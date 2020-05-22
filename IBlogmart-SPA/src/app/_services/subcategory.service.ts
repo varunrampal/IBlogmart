@@ -29,4 +29,13 @@ const httppOtions = {
     return this.http.get<Image[]>(this.baseUrl + 'images/' + id, httppOtions);
 
    }
+
+   getcategory(id: number): Observable<Subcategory> {
+
+    return this.http.get<Subcategory>(this.baseUrl + 'get/' + id, httppOtions);
+   }
+   
+   isalreadyexists(name: string, id: number) {
+    return this.http.get<boolean>(this.baseUrl + 'exists/' + name + '/' + id, httppOtions);
+  }
 }

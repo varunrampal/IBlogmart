@@ -25,16 +25,16 @@ export class AdminCategoryListComponent implements OnInit {
     this.locationService.pagetitle = 'Category List';
     this.route.data.subscribe((data) => {
       this.categories = data.categories;
-      // console.log(data);
       this.categories.map((res) => {
-        const imgObj = res.images.find((img) => img.isMain === true);
+        console.log(res.images);
+        const imgObj = res.images.find((img) => img.isMain === true && img.type === 0);
         if (imgObj != null) {
           res.mainImageUrl = imgObj.url;
         } else {
           res.mainImageUrl =  '/assets/img/noimage.png';
         }
       });
-     
+
     });
   }
 
@@ -42,8 +42,7 @@ export class AdminCategoryListComponent implements OnInit {
     console.log(id);
   }
 
-  createCategory()
-  {
+  createCategory() {
     this.router.navigate(['/admin/category/create']);
   }
 }

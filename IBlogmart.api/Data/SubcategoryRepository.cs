@@ -25,19 +25,24 @@ namespace IBlogmart.api.Data
         {
             throw new System.NotImplementedException();
         }
-        public async Task<bool> SubCategoryNameExists(string name, int catId)
+        public async Task<bool> SubCategoryNameExists(string name, int subCatId)
         {
-            return await _Context.SubCategories.AnyAsync(s => s.Name == name && s.CategoryId == catId);
+            return await _Context.SubCategories.AnyAsync(s => s.Name == name && s.Id != subCatId);
         }
-        public Task<SubCategory> GetSubCategory(int Id)
+        public async Task<SubCategory> GetSubCategory(int Id)
         {
-            throw new System.NotImplementedException();
+            return await _Context.SubCategories.Include( i => i.Images).FirstOrDefaultAsync(s => s.Id == Id);
         }
 
         public async Task<IEnumerable<Image>> GetSubCategoryImages(int subCatId)
         {
            var image = await _Context.Images.Where( p => p.SubCategoryId == subCatId).ToListAsync();
            return image;
+        }
+
+        public async Task<Image> GetMainImage(int id, string type)
+        {
+          return await _Context.Images.Where(i => i.SubCategoryId == id  && i.isMain == true && i.type == 1).FirstOrDefaultAsync();
         }
     }
 }

@@ -20,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 namespace IBlogmart.api
 {
@@ -52,6 +53,10 @@ namespace IBlogmart.api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSwaggerGen(c =>
+               {
+                   c.SwaggerDoc("v1", new OpenApiInfo { Title = "IBlogmart API", Version = "v1" });
+               });
             services.AddCors();
             services.AddAutoMapper(typeof(AuthRepository).Assembly);
             services.AddControllers().AddNewtonsoftJson(opt =>
@@ -59,8 +64,9 @@ namespace IBlogmart.api
 
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+
             services.AddScoped<IAuthRepository, AuthRepository>();
-             services.AddScoped<IBlogmartRepository, BlogmartRepository>();
+            services.AddScoped<IBlogmartRepository, BlogmartRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ISubcategoryRepository, SubcategoryRepository>();
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
@@ -82,22 +88,34 @@ namespace IBlogmart.api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "IBlogmart API V1");
+                // c.RoutePrefix = string.Empty;
+            });
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-              else{
+            else
+            {
 
-                app.UseExceptionHandler(builder => {
-                    builder.Run(async context => {
-                      context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                     var error = context.Features.Get<IExceptionHandlerFeature>();
-                     if(error != null)
-                     {
-                        context.Response.AddApplicationError(error.Error.Message);
-                        await context.Response.WriteAsync(error.Error.Message);
-                     }
-                });
+                app.UseExceptionHandler(builder =>
+                {
+                    builder.Run(async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        var error = context.Features.Get<IExceptionHandlerFeature>();
+                        if (error != null)
+                        {
+                            context.Response.AddApplicationError(error.Error.Message);
+                            await context.Response.WriteAsync(error.Error.Message);
+                        }
+                    });
                 });
             }
 
@@ -116,6 +134,7 @@ namespace IBlogmart.api
             {
                 endpoints.MapControllers();
             });
+
         }
     }
 }

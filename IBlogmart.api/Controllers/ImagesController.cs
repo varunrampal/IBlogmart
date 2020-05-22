@@ -18,15 +18,19 @@ namespace IBlogmart.api.Controllers
     {
         private Cloudinary _cloudinary;
         public ICategoryRepository _repo;
+
+         public ISubcategoryRepository _repoSubCat;
         private readonly IMapper _mapper;
         public IOptions<CloudinarySettings> _cloudinaryConfig;
         public ImagesController(IMapper mapper,
         ICategoryRepository repo,
+        ISubcategoryRepository repoSubCat,
         IOptions<CloudinarySettings> cloudinaryConfig)
         {
             _cloudinaryConfig = cloudinaryConfig;
             _mapper = mapper;
             _repo = repo;
+            _repoSubCat = repoSubCat;
 
             Account acc = new Account(
               _cloudinaryConfig.Value.CloudName,
@@ -59,8 +63,8 @@ namespace IBlogmart.api.Controllers
         // [Route("api/category/{categoryId}/{isMain}/Image")]
         [Route("api/images/{categoryId}/{id}/{type}/Upload")]
 
-       // public async Task<IActionResult> AddCategoryImage(int categoryId, int isMain, [FromForm]ImageForUploadDto imageForUploadDto)
-        public async Task<IActionResult> AddCategoryImage(int categoryId, int id, string type ,[FromForm]ImageForUploadDto imageForUploadDto)
+        // public async Task<IActionResult> AddCategoryImage(int categoryId, int isMain, [FromForm]ImageForUploadDto imageForUploadDto)
+        public async Task<IActionResult> AddCategoryImage(int categoryId, int id, string type, [FromForm] ImageForUploadDto imageForUploadDto)
         {
 
             var file = imageForUploadDto.File;
@@ -89,8 +93,8 @@ namespace IBlogmart.api.Controllers
 
             //var image =  _mapper.Map<Image>(imageForUploadDto);
 
-            if(type == "subcat")
-               imageType = 1;
+            if (type == "subcat")
+                imageType = 1;
 
             var image = new Image
             {
@@ -107,8 +111,8 @@ namespace IBlogmart.api.Controllers
             return Ok();
         }
 
-        [HttpPost("api/image/setmain/{id}/{imageid}/{type}")]
-        public async Task<IActionResult> SetMainImage(int id, int imageid, string type)
+        [HttpPost("api/image/setmain/{id}/{imageid}/{subcatid}/{type}")]
+        public async Task<IActionResult> SetMainImage(int id, int imageid, int subcatid, string type)
         {
 
             var imageFromRepo = await _repo.GetImage(imageid);
@@ -117,18 +121,40 @@ namespace IBlogmart.api.Controllers
             {
                 if (imageFromRepo.isMain)
                     return BadRequest("This is alreadya main image");
-                var currentMainImage = await _repo.GetMainImage(id, type);
-                if(currentMainImage != null)
-                  currentMainImage.isMain = false;
 
-                imageFromRepo.isMain = true;
+                if (type == "cat")
+                {
+                    var currentMainImage = await _repo.GetMainImage(id, type);
 
-                if (await _repo.SaveAll())
-                    return NoContent();
+                    if (currentMainImage != null)
+                        currentMainImage.isMain = false;
 
-                return BadRequest("Could not set image to main");
+                    imageFromRepo.isMain = true;
 
+                    if (await _repo.SaveAll())
+                        return NoContent();
 
+                    return BadRequest("Could not set image to main");
+
+                } else if(type == "subcat") {
+
+                  
+                    var currentMainImage = await _repoSubCat.GetMainImage(subcatid, type);
+
+                    if (currentMainImage != null)
+                        currentMainImage.isMain = false;
+
+                    imageFromRepo.isMain = true;
+
+                    if (await _repo.SaveAll())
+                        return NoContent();
+
+                    return BadRequest("Could not set image to main");
+                }
+                else
+                {
+                    return Ok();
+                }
             }
             else
             {

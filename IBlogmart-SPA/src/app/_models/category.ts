@@ -1,15 +1,15 @@
 export interface Category {
-    id: number;
+    id?: number;
     name: string;
     active: boolean;
-    mainImageUrl: string;
-    images: [ {
+    mainImageUrl?: string;
+    images?: [ {
         id: number;
         url: string;
         isMain: boolean;
         type?: number;
     }];
-    subCategories: [ {
+    subCategories?: [ {
         id: number;
         name: string;
         active: boolean;

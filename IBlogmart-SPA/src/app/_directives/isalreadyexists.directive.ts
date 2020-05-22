@@ -7,6 +7,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { CategoryService } from '../_services/category.service';
+import { SubCategoryService } from '../_services/subcategory.service';
 
 @Directive({
   selector: '[appIsalreadyexists]',
@@ -20,7 +21,8 @@ export class IsalreadyexistsDirective {
 
   constructor(
     private el: ElementRef,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private subCategoruService: SubCategoryService
   ) {}
   @HostListener('blur') onblur() {
     this.el.nativeElement.style.color = 'black';
@@ -49,6 +51,18 @@ export class IsalreadyexistsDirective {
             }
           });
       }
+
+      if (this.entityType === 'subcat') {
+        this.subCategoruService
+        .isalreadyexists(enteredValue, this.entityId)
+        .subscribe((isExists) => {
+          this.isNameExists.emit(isExists);
+
+          if (isExists) {
+            this.el.nativeElement.style.color = color;
+          }
+        });
+       }
     }
   }
 }

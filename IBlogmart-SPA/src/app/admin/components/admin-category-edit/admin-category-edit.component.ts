@@ -106,13 +106,13 @@ export class AdminCategoryEditComponent implements OnInit {
     this.nameExists = isExists;
     console.log('nameExists' + isExists);
     if (isExists) {
-      this.alertify.error('Category already exists');
+      this.alertify.error('Category with the same name already exists');
     }
   }
 
   isEmpty(empty: boolean) {
      this.empty = empty;
-     if (empty) { this.alertify.error('Please enter category'); }
+     if (empty) { this.alertify.error('Please enter category name'); }
 
   }
 

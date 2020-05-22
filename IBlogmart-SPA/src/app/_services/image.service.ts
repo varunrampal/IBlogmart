@@ -21,9 +21,9 @@ export class ImageService {
 
   constructor(private http: HttpClient) { }
 
-  setMainImage(imageId: number, Id: number, type: string) {
+  setMainImage(imageId: number, Id: number, subCatId: number, type: string) {
 
-    return this.http.post(this.baseUrl + 'setmain/' + Id + '/' + imageId + '/' + type, {}, httppOtions);
+    return this.http.post(this.baseUrl + 'setmain/' + Id + '/' + imageId + '/' +  subCatId  + '/' + type, {}, httppOtions);
 
 
   }

@@ -6,25 +6,20 @@
         </div>
         <div class="card-body">
           <div>
-            <!-- <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+         
               <div class="form-group">
-                <label for="name">Select Category:</label>
-                <select  class="form-control" (change)="filterCategories($event.target.value)" formControlName="categoryId">
-                  <option value="0">--Select--</option>
-                  <option *ngFor="let category of categories" value={{category.id}}>
-                    {{category.name}}
-                  </option>
-                </select>
-              </div>
-  
-              <div class="form-group">
-                <label for="name">SubCategory Name:</label>
+                <label for="name">Category Name:</label>
                 <input
                   type="text"
                   class="form-control"
                   formControlName="categoryName"
                   id="CategoryName"
-                  (focusout)="checkCategoryName()"
+                  [appIsalreadyexists] = "categoryExists"
+                  [entityId]="id"
+                  [entityType] = "type"
+                  (isNameExists)="isNameExists($event)"
+                  (isEmpty) = "isEmpty($event)"
                   required
                   #CatName
                   pattern="/[A-Z]{5}\d{4}[A-Z]{1}/i"
@@ -32,13 +27,12 @@
               </div>
   
               <div class="checkbox">
-                <label
-                  ><input type="checkbox" formControlName="isActive" /> Active
+                <label><input type="checkbox" formControlName="isActive" /> Active
                 </label>
               </div>
              
               <button type="submit" class="btn btn-default"  >Save</button>
-            </form> -->
+            </form>
           </div>
         </div>
       </div>
@@ -48,17 +42,17 @@
         <div class="card-body">
           <tabset>
             <tab heading="Upload Images" id="tab1">
-              <!-- <app-admin-image-editor *ngIf="subCategory != null && subCategory.id > 0 else notcreated"
+              <app-admin-image-editor *ngIf="category != null && category.id > 0 else notcreated"
                 [images]="images"
                 [type]="type"
                 [catId] = "catId"
-                [subCatId] = "subCatId"
+                [subCatId] = "0"
                 (getImageChange)="updateMainImage($event)"
               >
               </app-admin-image-editor>
               <ng-template #notcreated>
-                To upload images, please create a subcategory.
-              </ng-template> -->
+                To upload images, please create a category.
+              </ng-template>
             </tab>
           </tabset>
         </div>

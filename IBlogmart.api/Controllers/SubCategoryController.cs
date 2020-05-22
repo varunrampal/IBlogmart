@@ -10,6 +10,8 @@ using System.Security.Claims;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authorization;
+using System.Net.Http;
+using System.Net;
 
 namespace IBlogmart.api.Controllers
 {
@@ -44,7 +46,7 @@ namespace IBlogmart.api.Controllers
                return Ok(subCategoryToCreate);
            }
 
-             return BadRequest(subCategoryToCreate);
+           return BadRequest(subCategoryToCreate);
 
         }
 
@@ -53,6 +55,25 @@ namespace IBlogmart.api.Controllers
            
           return Ok(await _repo.GetSubCategoryImages(subCatId));
         }
+
+        [HttpGet("get/{subCatId}")]
+        public async Task<IActionResult> GetSubcategory(int subCatId) {
+
+            if(await _repo.GetSubCategory(subCatId) == null)
+            {
+               return NotFound();
+            }
+           
+          return Ok(await _repo.GetSubCategory(subCatId));
+        }
+
+        
+         [HttpGet("Exists/{name}/{id}")]
+         public async Task<IActionResult> Exists(string name, int id)
+         {
+            return Ok(await _repo.SubCategoryNameExists(name.ToLower(), id));
+         }
+
 
     }
 }

@@ -10,6 +10,8 @@ import { AdminCategoryEditComponent } from './components/admin-category-edit/adm
 import { AdminSubcategoryCreateComponent } from './components/admin-subcategory-create/admin-subcategory-create.component';
 import { AdminSubcategoryListComponent } from './components/admin-subcategory-list/admin-subcategory-list.component';
 import { CategoryResolver } from '../_resolvers/category.resolver';
+import { AdminCategoryCreateComponent } from './components/admin-category-create/admin-category-create.component';
+import { AdminSubcategoryEditComponent } from './components/admin-subcategory-edit/admin-subcategory-edit.component';
 
 const routes: Routes = [
   {
@@ -31,7 +33,7 @@ const routes: Routes = [
       },
       {
         path: 'category/create',
-        component: AdminSubcategoryCreateComponent,
+        component: AdminCategoryCreateComponent,
         canActivate: [AuthGuard],
       },
       {
@@ -54,6 +56,11 @@ const routes: Routes = [
       {
         path: 'subcategory/create',
         component: AdminSubcategoryCreateComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'subcategory/edit/:id/:catid',
+        component: AdminSubcategoryEditComponent,
         canActivate: [AuthGuard],
       },
     ],

@@ -25,7 +25,7 @@ export class AdminImageEditorComponent implements OnInit {
   @Input() images: Image[];
   @Input() type: string;
   @Input() catId: number;
-  @Input() subCatId: number;
+  @Input() subCatId = 0;
   @Output() getImageChange = new EventEmitter<string>();
 
   constructor(
@@ -107,7 +107,7 @@ onErrorItem(item: FileItem, response: string, status: number, headers: ParsedRes
   }
 
   setMainImage(image: Image) {
-    this.imageService.setMainImage(image.id, this.catId, this.type).subscribe(() => {
+    this.imageService.setMainImage(image.id, this.catId, this.subCatId,this.type).subscribe(() => {
        this.currentMain = this.images.filter(i => i.isMain === true)[0];
        if (this.currentMain != null) {
             this.currentMain.isMain = false;

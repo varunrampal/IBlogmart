@@ -10,6 +10,7 @@ namespace IBlogmart.api.Data
        Task<IEnumerable<SubCategory>> GetSubCategories(int CatId);
        Task<IEnumerable<Image>> GetSubCategoryImages(int subCatId);
        Task<bool> Create(SubCategory subCategory);
-       Task<bool> SubCategoryNameExists(string name, int catId);
+       Task<bool> SubCategoryNameExists(string name, int subCatId);
+       Task<Image> GetMainImage(int id, string type);
     }
 }

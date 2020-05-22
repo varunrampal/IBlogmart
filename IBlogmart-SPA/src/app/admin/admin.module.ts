@@ -24,6 +24,7 @@ import { SubCategoryService } from '../_services/subcategory.service';
 import { IsalreadyexistsDirective } from '../_directives/isalreadyexists.directive';
 import { CategoryResolver } from '../_resolvers/category.resolver';
 import { AdminCategoryCreateComponent } from './components/admin-category-create/admin-category-create.component';
+import { AdminSubcategoryEditComponent } from './components/admin-subcategory-edit/admin-subcategory-edit.component';
 
 @NgModule({
   imports: [CommonModule,
@@ -49,7 +50,8 @@ import { AdminCategoryCreateComponent } from './components/admin-category-create
     AdminSubcategoryListComponent,
     AdminSubcategoryCreateComponent,
     IsalreadyexistsDirective,
-    AdminCategoryCreateComponent
+    AdminCategoryCreateComponent,
+    AdminSubcategoryEditComponent
   ],
  
   providers: [CategoriesResolver,

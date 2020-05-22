@@ -25,6 +25,12 @@ getall(): Observable<Category[]> {
   return this.http.get<Category[]>(this.baseUrl + 'getall', httppOtions);
  }
 
+ // create category
+ create(category: Category): Observable<Category> {
+  return this.http.post<Category>(this.baseUrl + 'create', category, httppOtions);
+ }
+
+
  // get category images
 getcategoryimages(catId: number): Observable<Image[]> {
   return this.http.get<Image[]>(this.baseUrl + catId + '/images', httppOtions);

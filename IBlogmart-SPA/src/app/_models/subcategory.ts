@@ -8,5 +8,6 @@ export interface Subcategory {
         id: number;
         url: string;
         isMain: boolean;
+        type?: number;
     }];
    }

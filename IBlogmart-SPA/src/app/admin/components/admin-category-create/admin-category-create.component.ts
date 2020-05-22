@@ -14,12 +14,15 @@ import { LocationService } from 'src/app/_services/location.service';
   styleUrls: ['./admin-category-create.component.css']
 })
 export class AdminCategoryCreateComponent implements OnInit {
-  categories: Category[];
+  category: Category;
   images: Image[];
   type = 'cat';
   catId: number;
-  subCatId: number;
-  @ViewChild('CatName', {static: false}) catName;
+  id = 0;
+  categoryExists: false;
+  nameExists = false;
+  empty = false;
+
   createForm = new FormGroup({
     categoryName: new FormControl(''),
     isActive: new FormControl(''),
@@ -34,6 +37,53 @@ export class AdminCategoryCreateComponent implements OnInit {
               private el: ElementRef) { }
 
   ngOnInit() {
+    this.locationService.pagetitle = 'Create Category';
   }
+
+  onSubmit() {
+
+     const catToCreate: Category = {
+      name:   this.createForm.value.categoryName,
+      active: this.createForm.value.isActive,
+   };
+
+     this.categoryService.create(catToCreate).subscribe((category) => {
+
+      if (category != null) {
+         if (category.id > 0) {
+           this.category = category;
+           this.images = this.category.images;
+
+           this.catId =  this.category.id;
+           this.alertifyService.success('Category created successfully');
+         }
+
+        } else {
+          this.alertifyService.error('Failed to create category');
+        }
+    }, error => {
+        this.alertifyService.error('Failed to create category');
+    });
+
+  }
+
+  isNameExists(isExists: boolean) {
+    this.nameExists = isExists;
+    console.log('nameExists' + isExists);
+    if (isExists) {
+      this.alertifyService.error('Category already exists');
+    }
+  }
+
+  isEmpty(empty: boolean) {
+     this.empty = empty;
+     if (empty) { this.alertifyService.error('Please enter category'); }
+
+  }
+
+  updateMainImage(imageUrl: string) {
+    this.category.mainImageUrl = imageUrl;
+
+ }
 
 }
