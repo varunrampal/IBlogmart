@@ -29,9 +29,6 @@
                 Name
               </th>
               <th>
-                Category
-              </th>
-              <th>
                 Active
               </th>
               <th>Edit</th>
@@ -49,17 +46,14 @@
                 </td>
                 <td>
                   <a
-                    [routerLink]="['/admin/subcategory/details', subCategory.id]"
+                    [routerLink]="['/admin/subcategory/details', subCategory.id, subCategory.categoryId]"
                     style="cursor: pointer;"
                     title="Category details"
                   >
                     {{ subCategory.name }}</a
                   >
                 </td>
-                <td>
-                    {{subCategory.name}}
-                </td>
-                <td>
+                 <td>
                   <input type="checkbox" [checked]="subCategory.active" disabled />
                 </td>
                 <td>

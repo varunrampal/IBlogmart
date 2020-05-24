@@ -36,6 +36,7 @@ export class AdminSubcategoryListComponent implements OnInit {
     if ( val > 0) {this.catSelected = true;}
     this.categoryService.getcategory(val).subscribe((data) => {
         this.subCategories = data.subCategories;
+        console.log(this.subCategories);
         this.subCategories.map((res) => {
 
           if (res.images == null) {

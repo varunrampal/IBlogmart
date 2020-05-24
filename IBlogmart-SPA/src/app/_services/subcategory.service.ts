@@ -34,6 +34,11 @@ const httppOtions = {
 
     return this.http.get<Subcategory>(this.baseUrl + 'get/' + id, httppOtions);
    }
+
+   update(suCategory: Subcategory) {
+    return this.http.put(this.baseUrl + 'update', suCategory, httppOtions);
+}
+
    
    isalreadyexists(name: string, id: number) {
     return this.http.get<boolean>(this.baseUrl + 'exists/' + name + '/' + id, httppOtions);

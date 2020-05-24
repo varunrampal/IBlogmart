@@ -10,25 +10,27 @@ import { CategoryService } from 'src/app/_services/category.service';
 import { Category } from 'src/app/_models/category';
 import { LocationService } from 'src/app/_services/location.service';
 import { Subcategory } from 'src/app/_models/subcategory';
+import { SubCategoryService } from 'src/app/_services/subcategory.service';
 
 @Component({
-  selector: 'app-admin-category-details',
-  templateUrl: './admin-category-details.component.html',
-  styleUrls: ['./admin-category-details.component.css'],
+  selector: 'app-admin-subcategory-details',
+  templateUrl: './admin-subcategory-details.component.html',
+  styleUrls: ['./admin-subcategory-details.component.css']
 })
-export class AdminCategoryDetailsComponent implements OnInit {
+export class AdminSubcategoryDetailsComponent implements OnInit {
+
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
   images: Image[];
-  subCategories: Subcategory[];
+  subCategory: Subcategory;
   catId: any;
+  subCatId: any;
   category: Category = null;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private categoryService: CategoryService,
-    private locationService: LocationService
-  ) {}
+  constructor( private activatedRoute: ActivatedRoute,
+               private categoryService: CategoryService,
+               private subCategoryService: SubCategoryService,
+               private locationService: LocationService) { }
 
   ngOnInit() {
 
@@ -44,30 +46,26 @@ export class AdminCategoryDetailsComponent implements OnInit {
     ];
 
 
-    this.locationService.pagetitle = 'Category details';
+    this.locationService.pagetitle = 'Subcategory details';
     this.activatedRoute.params.subscribe((params) => {
-      this.catId = params.id;
+      this.catId = params.catid;
+      this.subCatId = params.id;
       this.galleryImages = this.getImages();
       this.category = this.category;
     });
-
-
-
   }
+
   getImages() {
     const imageUrls = [];
-    this.categoryService.getcategory(this.catId).subscribe((res) => {
-      this.category = res;
-      // console.log(res);
-
-      this.subCategories = this.category.subCategories;
-
-      const imgObj = res.images.find((img) => img.isMain === true);
+    this.subCategoryService.getcategory(this.subCatId).subscribe((res) => {
+      this.subCategory = res;
+      console.log(res);
+      const imgObj = res.images.find((img) => img.isMain === true && img.type === 1);
 
       if (imgObj != null && imgObj.isMain === true) {
-        this.category.mainImageUrl = imgObj.url;
+        this.subCategory.mainImageUrl = imgObj.url;
       } else {
-        this.category.mainImageUrl = '/assets/img/noimage.png';
+        this.subCategory.mainImageUrl = '/assets/img/noimage.png';
       }
 
       res.images.map((img) => {
@@ -80,4 +78,5 @@ export class AdminCategoryDetailsComponent implements OnInit {
     });
     return imageUrls;
   }
+
 }

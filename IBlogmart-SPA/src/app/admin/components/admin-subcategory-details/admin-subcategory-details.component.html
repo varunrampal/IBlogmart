@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-md-4">
+      <div class="card">
+       
+          <div class="card-header">
+            <h5 class="card-title">{{ subCategory?.name }}</h5>
+            <p class="card-category">Active: <input type="checkbox" [checked]="subCategory?.active" disabled></p>
+          </div>
+          <div class="card-body">
+              <img [src]= "subCategory?.mainImageUrl" height="200px" width="200px"/>
+      
+          </div>
+        
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card card-chart">
+        <div class="card-body">
+          <tabset>
+            <!-- <tab heading="Sub Categories" id="tab1">
+              <ng-container *ngIf="subCategories?.length > 0">
+                <ul *ngFor = "let subcategory of subCategories">
+                  <li>{{subcategory.name}}</li>
+                 </ul>
+              </ng-container>
+            </tab> -->
+            <tab heading="Images">
+              <ngx-gallery *ngIf="subCategory?.images.length > 0 else nodata"
+                [options]="galleryOptions"
+                [images]="galleryImages"
+              ></ngx-gallery>
+              
+            <ng-template #nodata>No image uploaded</ng-template>
+            </tab>
+          </tabset>
+        </div>
+      </div>
+    </div>
+  </div>
+  

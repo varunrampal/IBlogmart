@@ -12,6 +12,7 @@ import { AdminSubcategoryListComponent } from './components/admin-subcategory-li
 import { CategoryResolver } from '../_resolvers/category.resolver';
 import { AdminCategoryCreateComponent } from './components/admin-category-create/admin-category-create.component';
 import { AdminSubcategoryEditComponent } from './components/admin-subcategory-edit/admin-subcategory-edit.component';
+import { AdminSubcategoryDetailsComponent } from './components/admin-subcategory-details/admin-subcategory-details.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,11 @@ const routes: Routes = [
       {
         path: 'subcategory/create',
         component: AdminSubcategoryCreateComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'subcategory/details/:id/:catid',
+        component: AdminSubcategoryDetailsComponent,
         canActivate: [AuthGuard],
       },
       {

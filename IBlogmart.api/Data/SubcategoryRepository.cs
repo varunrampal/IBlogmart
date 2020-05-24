@@ -25,13 +25,26 @@ namespace IBlogmart.api.Data
         {
             throw new System.NotImplementedException();
         }
-        public async Task<bool> SubCategoryNameExists(string name, int subCatId)
+        public async Task<bool> SubCategoryNameExists(string name="", int subCatId=0)
         {
-            return await _Context.SubCategories.AnyAsync(s => s.Name == name && s.Id != subCatId);
+            
+            if(name != "" && subCatId > 0) {
+               return await _Context.SubCategories.AnyAsync(s => s.Name == name && s.Id != subCatId);
+            }
+            else if(name == "" && subCatId > 0) {
+                return await _Context.SubCategories.AnyAsync(s => s.Id == subCatId);
+
+            } else if(name != "" && subCatId == 0) {
+
+                return await _Context.SubCategories.AnyAsync(s => s.Name == name);
+            }
+
+            return false;
+           
         }
         public async Task<SubCategory> GetSubCategory(int Id)
         {
-            return await _Context.SubCategories.Include( i => i.Images).FirstOrDefaultAsync(s => s.Id == Id);
+            return await _Context.SubCategories.Include( i => i.Images).Include(c => c.Category).FirstOrDefaultAsync(s => s.Id == Id);
         }
 
         public async Task<IEnumerable<Image>> GetSubCategoryImages(int subCatId)
@@ -44,5 +57,18 @@ namespace IBlogmart.api.Data
         {
           return await _Context.Images.Where(i => i.SubCategoryId == id  && i.isMain == true && i.type == 1).FirstOrDefaultAsync();
         }
+
+         public async Task<bool> UpdateSubcategory(SubCategory subCategory){
+
+            var subCatFromRepo =  _Context.SubCategories.SingleOrDefault(s => s.Id == subCategory.Id);
+            subCatFromRepo.Name = subCategory.Name;
+            subCatFromRepo.Active = subCategory.Active;
+
+            if (subCatFromRepo != null)
+                 return await  _repo.SaveAll();
+            return false;
+            
+        }
+
     }
 }

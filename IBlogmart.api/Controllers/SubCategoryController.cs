@@ -74,6 +74,29 @@ namespace IBlogmart.api.Controllers
             return Ok(await _repo.SubCategoryNameExists(name.ToLower(), id));
          }
 
+        [HttpPut("update")]
+        public async Task<IActionResult> UpdateSubcategory(SubCategoryDto subCategoryDto)
+        {
+            if(!await _repo.SubCategoryNameExists("",subCategoryDto.Id))
+                return BadRequest("Subcategory doesn't exists");
+            
+             if (await _repo.SubCategoryNameExists(subCategoryDto.Name.ToLower(), subCategoryDto.Id))
+                return BadRequest("Subcategory with the same name already exists");
+
+           var subCategoryToUpdate = new SubCategory
+            {
+                Id = subCategoryDto.Id,
+                Name = subCategoryDto.Name,
+                Active = subCategoryDto.Active
+            };
+
+            if(await _repo.UpdateSubcategory(subCategoryToUpdate))
+              return Ok();
+
+           return BadRequest("Unable to update");
+
+        }
+
 
     }
 }
