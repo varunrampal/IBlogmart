@@ -6,7 +6,6 @@ import { NgxGalleryModule } from 'ngx-gallery';
 import { TabsModule } from '../../../node_modules/ngx-bootstrap/tabs';
 import { FileUploadModule } from 'ng2-file-upload';
 
-import { AdminRoutes } from './admin.routing';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 import { AdminLayoutComponent } from '../components/_layout/admin-layout/admin-layout.component';
@@ -26,17 +25,19 @@ import { CategoryResolver } from '../_resolvers/category.resolver';
 import { AdminCategoryCreateComponent } from './components/admin-category-create/admin-category-create.component';
 import { AdminSubcategoryEditComponent } from './components/admin-subcategory-edit/admin-subcategory-edit.component';
 import { AdminSubcategoryDetailsComponent } from './components/admin-subcategory-details/admin-subcategory-details.component';
+import { TestComponent } from './components/test/test.component';
+import { AdminRoutingModule } from './admin.routing';
 
 @NgModule({
   imports: [CommonModule,
-            FormsModule,
-            ReactiveFormsModule,
-            NgxGalleryModule,
-            NgbModule,
-            TabsModule.forRoot(),
-            FileUploadModule,
-            AdminRoutes
-           ],
+    FormsModule,
+    ReactiveFormsModule,
+    NgxGalleryModule,
+    NgbModule,
+    TabsModule.forRoot(),
+    FileUploadModule,
+    AdminRoutingModule
+  ],
   declarations: [
     AdminLayoutComponent,
     AdminHeaderComponent,
@@ -53,11 +54,13 @@ import { AdminSubcategoryDetailsComponent } from './components/admin-subcategory
     IsalreadyexistsDirective,
     AdminCategoryCreateComponent,
     AdminSubcategoryEditComponent,
-    AdminSubcategoryDetailsComponent
+    AdminSubcategoryDetailsComponent,
+    TestComponent
   ],
- 
+  exports: [AdminLoginComponent],
+
   providers: [CategoriesResolver,
-              CategoryResolver,
-              SubCategoryService]
+    CategoryResolver,
+    SubCategoryService]
 })
-export class AdminRoutingModule {}
+export class AdminModule { }

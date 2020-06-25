@@ -24,7 +24,9 @@ export class AdminCategoryListComponent implements OnInit {
   ngOnInit() {
     this.locationService.pagetitle = 'Category List';
     this.route.data.subscribe((data) => {
+      //console.log(data);
       this.categories = data.categories;
+      console.log( this.categories);
       this.categories.map((res) => {
         console.log(res.images);
         const imgObj = res.images.find((img) => img.isMain === true && img.type === 0);

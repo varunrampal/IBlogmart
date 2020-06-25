@@ -13,6 +13,7 @@ describe('AppComponent', () => {
       ],
     }).compileComponents();
   }));
+  
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -20,16 +21,11 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'IBlogmart-SPA'`, () => {
+  it(`should have as title 'IBlogmart'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('IBlogmart-SPA');
+    expect(app.title).toEqual('IBlogmart');
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('IBlogmart-SPA app is running!');
-  });
+
 });

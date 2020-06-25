@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { CategoryService } from 'src/app/_services/category.service';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { SubCategoryService } from 'src/app/_services/subcategory.service';
@@ -22,11 +22,12 @@ export class AdminCategoryCreateComponent implements OnInit {
   categoryExists: false;
   nameExists = false;
   empty = false;
+  createForm: FormGroup;
 
-  createForm = new FormGroup({
-    categoryName: new FormControl(''),
-    isActive: new FormControl(''),
-  });
+  // createForm = new FormGroup({
+  //   categoryName: new FormControl(''),
+  //   isActive: new FormControl(''),
+  // });
 
 
 
@@ -34,7 +35,14 @@ export class AdminCategoryCreateComponent implements OnInit {
               private alertifyService: AlertifyService,
               private subCategoryService: SubCategoryService,
               private locationService: LocationService,
-              private el: ElementRef) { }
+              private el: ElementRef,
+              private fb: FormBuilder) {
+
+                this.createForm = fb.group({
+                  categoryName: [''],
+                  isActive: ['']
+                });
+               }
 
   ngOnInit() {
     this.locationService.pagetitle = 'Create Category';

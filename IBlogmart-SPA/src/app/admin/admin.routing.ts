@@ -13,14 +13,19 @@ import { CategoryResolver } from '../_resolvers/category.resolver';
 import { AdminCategoryCreateComponent } from './components/admin-category-create/admin-category-create.component';
 import { AdminSubcategoryEditComponent } from './components/admin-subcategory-edit/admin-subcategory-edit.component';
 import { AdminSubcategoryDetailsComponent } from './components/admin-subcategory-details/admin-subcategory-details.component';
+import { NgModule } from '@angular/core';
+import { AdminLoginComponent } from './components/admin-login/admin-login.component';
+
+// import { AdminLoginComponent } from './components/admin-login/admin-login.component';
 
 const routes: Routes = [
   {
-    path: 'admin',
+
+
+    path: '',
     component: AdminLayoutComponent,
     children: [
-      { path: '', redirectTo: 'login', pathMatch: 'full' },
-      // { path: 'login', component: AdminLoginComponent},
+
       {
         path: 'dashboard',
         component: DashboardComponent,
@@ -47,7 +52,7 @@ const routes: Routes = [
         component: AdminCategoryEditComponent,
         canActivate: [AuthGuard],
         resolve: { category: CategoryResolver },
-        data: { path: 'category/edit/:id' }
+        data: { path: 'category/edit/:id' },
       },
       {
         path: 'subcategory/list',
@@ -69,8 +74,18 @@ const routes: Routes = [
         component: AdminSubcategoryEditComponent,
         canActivate: [AuthGuard],
       },
+
     ],
+
   },
+  { path: 'login', component: AdminLoginComponent },
 ];
 
-export const AdminRoutes = RouterModule.forChild(routes);
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+
+
+})
+export class AdminRoutingModule { }
+
